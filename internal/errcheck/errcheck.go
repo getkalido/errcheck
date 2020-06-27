@@ -112,6 +112,9 @@ type Checker struct {
 	// If true, checking of files with generated code is disabled
 	WithoutGeneratedCode bool
 
+	// If true, checking defer foo.Close()
+	CheckDeferClose bool
+
 	exclude map[string]bool
 }
 
@@ -254,6 +257,7 @@ func (c *Checker) CheckPackages(paths ...string) error {
 					lines:       make(map[string][]string),
 					exclude:     c.exclude,
 					go111module: go111module,
+					checkClose:  c.CheckDeferClose,
 					errors:      []UncheckedError{},
 				}
 
@@ -291,6 +295,7 @@ type visitor struct {
 	ignore      map[string]*regexp.Regexp
 	blank       bool
 	asserts     bool
+	checkClose  bool
 	lines       map[string][]string
 	exclude     map[string]bool
 	go111module bool
@@ -424,6 +429,14 @@ func (v *visitor) excludeCall(call *ast.CallExpr) bool {
 		}
 	}
 	return false
+}
+
+func (v *visitor) isClose(call *ast.CallExpr) bool {
+	id, ok := call.Fun.(*ast.SelectorExpr)
+	if !ok {
+		return false
+	}
+	return id.Sel.Name == "Close"
 }
 
 func (v *visitor) ignoreCall(call *ast.CallExpr) bool {
@@ -587,6 +600,9 @@ func (v *visitor) Visit(node ast.Node) ast.Visitor {
 			v.addErrorAtPosition(stmt.Call.Lparen, stmt.Call)
 		}
 	case *ast.DeferStmt:
+		if !v.checkClose && v.isClose(stmt.Call) {
+			break
+		}
 		if !v.ignoreCall(stmt.Call) && v.callReturnsError(stmt.Call) {
 			v.addErrorAtPosition(stmt.Call.Lparen, stmt.Call)
 		}
