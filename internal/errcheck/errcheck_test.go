@@ -11,7 +11,7 @@ import (
 	"golang.org/x/tools/go/packages"
 )
 
-const testPackage = "github.com/kisielk/errcheck/testdata"
+const testPackage = "github.com/amnonbc/errcheck/testdata"
 
 var (
 	uncheckedMarkers map[marker]bool

@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/kisielk/errcheck/internal/errcheck"
+	"github.com/amnonbc/errcheck/internal/errcheck"
 )
 
 const (
