@@ -7,6 +7,23 @@ errcheck is a program for checking for unchecked errors in go programs.
 It is forked from https://github.com/kisielk/errcheck but unlike the original
 allows you to write `defer foo.Close()`.
 
+## Why a fork
+
+`defer h.Close()` 
+is idiomatic Go, which appears regularly in the standard library and text books.
+If h is a read only descriptor, then nothing useful can be done if the Close fails.
+
+This has been raised a number [of](https://github.com/kisielk/errcheck/issues/55) [times](https://github.com/kisielk/errcheck/issues/101) 
+upstream - see https://github.com/kisielk/errcheck/issues/55
+and https://github.com/kisielk/errcheck/issues/101, but these have been closed, as the author 
+believes that these errors should always be checked, and if necessary deferred calls to Close
+should be wrapped in a lambda. 
+This [unecessarily complicates code](https://github.com/Marethyu12/gotube/pull/4/commits/8552c52ca02b81fd0a307784916bfe6393fcaa1e), 
+and means that the Go standard
+library will fail errcheck.
+
+The Author is, of course, entitled to his opinion. But those who disagree with him have the right to fork and do otherwise.
+
 
 ## Install
 
