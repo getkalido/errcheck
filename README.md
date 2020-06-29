@@ -2,7 +2,7 @@
 
 errcheck is a program for checking for unchecked errors in go programs.
 
-![Go](https://github.com/amnonbc/errcheck/workflows/Go/badge.svg)
+![Go](https://github.com/getkalido/errcheck/workflows/Go/badge.svg)
 
 It is forked from https://github.com/kisielk/errcheck but unlike the original
 allows you to write `defer foo.Close()`.
@@ -26,7 +26,7 @@ The Author is, of course, entitled to his opinion. But those who disagree with h
 
 ## Install
 
-    go get -u github.com/amnonbc/errcheck
+    go get -u github.com/getkalido/errcheck
 
 errcheck requires Go 1.14 or newer and depends on the package go/packages from the golang.org/x/tools repository.
 

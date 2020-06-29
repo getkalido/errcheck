@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/amnonbc/errcheck/internal/errcheck"
+	"github.com/getkalido/errcheck/internal/errcheck"
 )
 
 const (

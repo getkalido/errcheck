@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/amnonbc/errcheck/internal/errcheck"
+	"github.com/getkalido/errcheck/internal/errcheck"
 )
 
 func TestMain(t *testing.T) {
@@ -40,7 +40,7 @@ func TestMain(t *testing.T) {
 		bufChannel <- buf.String()
 	}()
 
-	exitCode := mainCmd([]string{"cmd name", "github.com/amnonbc/errcheck/testdata"})
+	exitCode := mainCmd([]string{"cmd name", "github.com/getkalido/errcheck/testdata"})
 
 	w.Close()
 

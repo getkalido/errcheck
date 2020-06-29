@@ -1,4 +1,4 @@
-module github.com/amnonbc/errcheck
+module github.com/getkalido/errcheck
 
 go 1.14
 
